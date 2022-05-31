@@ -218,6 +218,7 @@ GameObject:
   - component: {fileID: 968440790}
   - component: {fileID: 968440789}
   - component: {fileID: 968440788}
+  - component: {fileID: 968440791}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -307,6 +308,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &968440791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968440787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 797f6ae0bc25db44d900ff8d82a6e72f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToLimit: {fileID: 968440790}
 --- !u!1 &1411324869
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,6 +469,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1746796030}
   - component: {fileID: 1746796031}
+  - component: {fileID: 1746796032}
   m_Layer: 0
   m_Name: MapLimiter
   m_TagString: Untagged
@@ -490,3 +505,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapLimiterConfiguration: {fileID: 11400000, guid: 7b346fac65eb2ad4fad0b1410f12d494, type: 2}
+  center: {x: 0, y: 0, z: 0}
+--- !u!114 &1746796032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746796029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e1c33ff0db1cb94dafb22c396dd1eed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapLimiterConfiguration: {fileID: 11400000, guid: 7b346fac65eb2ad4fad0b1410f12d494, type: 2}
+  centerPosition: {x: 0, y: 0, z: 0}

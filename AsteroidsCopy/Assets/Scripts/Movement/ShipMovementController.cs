@@ -5,14 +5,14 @@ using UnityEngine;
 public class ShipMovementController : IUpdatable
 {
     private readonly Transform _shipTransform;
-    private readonly InputController _inputController;
+    private readonly IMovementInput _inputController;
 
     private readonly ShipAccelerationController _shipAccelerationController;
     private readonly ShipRotateController _shipRotateController;
 
     public ShipMovementController(Transform shipTransform, IMovementConfiguration shipMovementConfiguration,
         IShipRotationConfiguration rotationConfiguration,
-        InputController inputController)
+        IMovementInput inputController)
     {
         _shipTransform = shipTransform;
         _inputController = inputController;

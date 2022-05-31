@@ -5,29 +5,53 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
-public class InputController : MonoBehaviour,IInputController
+public class InputController : MonoBehaviour, IMovementInput, IWeaponInput
 {
-    [SerializeField] private InputAction movementActions;
+    [SerializeField] private InputActionReference movementReference;
+    [SerializeField] private InputActionReference shotReference;
+    [SerializeField] private InputActionReference laserReference;
 
     public Vector2 MovementVector { get; private set; }
 
+
+    public event Action callShot;
+    public event Action callLaser;
+
+    private void Update()
+    {
+        UpdateInput();
+    }
+
     private void OnEnable()
     {
-        movementActions.Enable();
+        shotReference.action.started += CallShot;
+        laserReference.action.started += CallLaser;
+        
+        ServiceLocator.Subscribe<IMovementInput>(this);
+        ServiceLocator.Subscribe<IWeaponInput>(this);
     }
 
     private void OnDisable()
     {
-        movementActions.Disable();
+        shotReference.action.started -= CallShot;
+        laserReference.action.started -= CallLaser;
+        
+        ServiceLocator.Unsubscribe<IMovementInput>();
+        ServiceLocator.Unsubscribe<IWeaponInput>();
     }
 
-    private void Update()
+    private void CallShot(InputAction.CallbackContext callbackContext)
     {
-        UpdateMovementDirection();
+        callShot?.Invoke();
     }
 
-    private void UpdateMovementDirection()
+    private void CallLaser(InputAction.CallbackContext callbackContext)
     {
-        MovementVector = movementActions.ReadValue<Vector2>();
+        callLaser?.Invoke();
+    }
+
+    private void UpdateInput()
+    {
+        MovementVector = movementReference.ToInputAction().ReadValue<Vector2>();
     }
 }

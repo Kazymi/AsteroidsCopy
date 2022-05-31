@@ -5,11 +5,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
-public class InputController : MonoBehaviour
+public class InputController : MonoBehaviour,IInputController
 {
     [SerializeField] private InputAction movementActions;
 
-    public Vector2 MovementDirection { get; private set; }
+    public Vector2 MovementVector { get; private set; }
+
     private void OnEnable()
     {
         movementActions.Enable();
@@ -27,6 +28,6 @@ public class InputController : MonoBehaviour
 
     private void UpdateMovementDirection()
     {
-        MovementDirection = movementActions.ReadValue<Vector2>();
+        MovementVector = movementActions.ReadValue<Vector2>();
     }
 }

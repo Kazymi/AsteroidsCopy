@@ -8,13 +8,13 @@ public class ShipShotController : ILivingCycle
     private readonly ShipShooterConfiguration _shooterConfiguration;
     private readonly Transform _bulletSpawnPoint;
     private readonly IWeaponInput _weaponInput;
-    private readonly IBulletSpawner _bulletSpawner;
+    private readonly IBulletSpawnerService _bulletSpawner;
 
 
     public ShipShotController(Transform bulletSpawnPoint, ShipShooterConfiguration shooterConfiguration,
         IWeaponInput weaponInput)
     {
-        _bulletSpawner = ServiceLocator.GetService<IBulletSpawner>();
+        _bulletSpawner = ServiceLocator.GetService<IBulletSpawnerService>();
         _bulletSpawnPoint = bulletSpawnPoint;
         _shooterConfiguration = shooterConfiguration;
         _weaponInput = weaponInput;

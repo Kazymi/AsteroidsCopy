@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletSpawner : IBulletSpawner,ILaserSpawner
+public class WeaponComponentSpawner : IBulletSpawnerService,ILaserSpawnerService
 {
     private readonly IPool<TemporaryMonoPooled> _bulletPool;
     private readonly IPool<TemporaryMonoPooled> _laserPool;
     private const int StartAmountBulletInPool = 4;
 
-    public BulletSpawner(TemporaryMonoPooled bulletPrefab, TemporaryMonoPooled laserPrefab, Transform parent)
+    public WeaponComponentSpawner(TemporaryMonoPooled bulletPrefab, TemporaryMonoPooled laserPrefab, Transform parent)
     {
         var bulletFactory = new FactoryMonoObject<TemporaryMonoPooled>(bulletPrefab.gameObject, parent);
         _bulletPool = new Pool<TemporaryMonoPooled>(bulletFactory, StartAmountBulletInPool);

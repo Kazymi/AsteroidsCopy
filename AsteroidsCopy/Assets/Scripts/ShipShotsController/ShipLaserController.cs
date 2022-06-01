@@ -8,13 +8,13 @@ public class ShipLaserController : ILivingCycle
     private readonly ShipShooterConfiguration _shooterConfiguration;
     private readonly Transform _bulletSpawnPoint;
     private readonly IWeaponInput _weaponInput;
-    private readonly ILaserSpawner _laserSpawner;
+    private readonly ILaserSpawnerService _laserSpawner;
 
 
     public ShipLaserController(Transform bulletSpawnPoint, ShipShooterConfiguration shooterConfiguration,
         IWeaponInput weaponInput)
     {
-        _laserSpawner = ServiceLocator.GetService<ILaserSpawner>();
+        _laserSpawner = ServiceLocator.GetService<ILaserSpawnerService>();
         _bulletSpawnPoint = bulletSpawnPoint;
         _shooterConfiguration = shooterConfiguration;
         _weaponInput = weaponInput;
@@ -50,6 +50,6 @@ public class ShipLaserController : ILivingCycle
         transform.parent = _bulletSpawnPoint;
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
-        _currentCoolDown = _shooterConfiguration.FireRate;
+        _currentCoolDown = _shooterConfiguration.LaserCoolDown;
     }
 }

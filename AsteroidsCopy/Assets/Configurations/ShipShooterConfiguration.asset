@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: ShipShooterConfiguration
   m_EditorClassIdentifier: 
   fireRate: 0.25
+  laserCoolDown: 8

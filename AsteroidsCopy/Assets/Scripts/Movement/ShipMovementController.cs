@@ -44,7 +44,7 @@ public class ShipMovementController : IUpdatable
         _shipTransform.rotation = newRotate;
     }
 
-    public void Update()
+    public void Update(float deltaTime)
     {
         UpdateMovement();
     }
@@ -52,5 +52,5 @@ public class ShipMovementController : IUpdatable
 
 public interface IUpdatable
 {
-    void Update();
+    void Update(float deltaTime);
 }

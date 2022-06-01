@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Pool<T> : IPool<T> where T : IPooledObject
 {
@@ -35,7 +36,7 @@ public class Pool<T> : IPool<T> where T : IPooledObject
 
     private T NewPoolObject()
     {
-        var returnValue = _factory.CreatePoolObject();
+        var returnValue = _factory.CreateObject();
         returnValue.SetParentPool(this);
         return returnValue;
     }

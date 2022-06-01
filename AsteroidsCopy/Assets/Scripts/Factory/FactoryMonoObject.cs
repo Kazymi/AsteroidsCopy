@@ -4,21 +4,21 @@ using UnityEngine;
 public class FactoryMonoObject<T> : IFactory<T>
 {
     private readonly GameObject _prefab;
-    private Transform _parent;
+    public Transform Parent { get; private set; }
 
     public FactoryMonoObject(GameObject prefab, Transform parent)
     {
-        _parent = parent;
+        Parent = parent;
         _prefab = prefab;
         var newParent = new GameObject();
         newParent.transform.parent = parent;
-        _parent = newParent.transform;
-        _parent.name = _prefab.name;
+        Parent = newParent.transform;
+        Parent.name = _prefab.name;
     }
 
-    public T CreatePoolObject()
+    public T CreateObject()
     {
-        var newObject = GameObject.Instantiate(_prefab);
+        var newObject = GameObject.Instantiate(_prefab, Parent);
 
         var returnValue = newObject.GetComponent<T>();
         newObject.SetActive(false);

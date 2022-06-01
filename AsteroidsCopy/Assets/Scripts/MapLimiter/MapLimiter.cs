@@ -17,12 +17,6 @@ public class MapLimiter : IMapLimiterService
         _mapLimiterConfiguration = mapLimiterConfiguration;
         _centerPosition = center;
         Initialize();
-        ServiceLocator.Subscribe<IMapLimiterService>(this);
-    }
-
-    ~MapLimiter()
-    {
-        ServiceLocator.Unsubscribe<IMapLimiterService>();
     }
 
     private void Initialize()

@@ -2,7 +2,7 @@
 
 public class BulletEngineController
 {
-    private BulletEngineConfiguration _bulletEngineConfiguration;
+    private readonly BulletEngineConfiguration _bulletEngineConfiguration;
 
     public BulletEngineController(BulletEngineConfiguration bulletEngineConfiguration)
     {

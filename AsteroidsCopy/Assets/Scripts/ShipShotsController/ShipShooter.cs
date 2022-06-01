@@ -1,51 +1,35 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ShipShooter : ILivingCycle
 {
-    private float _currentCoolDown;
-    private bool IsReadyToShot => _currentCoolDown <= 0;
-    private readonly ShipShooterConfiguration _shooterConfiguration;
-    private readonly Transform _bulletSpawnPoint;
-    private readonly IWeaponInput _weaponInput;
-    private readonly IBulletSpawner _bulletSpawner;
+    private readonly ILivingCycle _shipShotController;
+    private readonly ILivingCycle _shipLaserController;
 
     public ShipShooter(Transform bulletSpawnPoint, ShipShooterConfiguration shooterConfiguration,
         IWeaponInput weaponInput)
     {
-        _bulletSpawner = ServiceLocator.GetService<IBulletSpawner>();
-        _bulletSpawnPoint = bulletSpawnPoint;
-        _shooterConfiguration = shooterConfiguration;
-        _weaponInput = weaponInput;
+        _shipShotController = new ShipShotController(bulletSpawnPoint, shooterConfiguration, weaponInput);
+        _shipLaserController = new ShipLaserController(bulletSpawnPoint, shooterConfiguration, weaponInput);
     }
 
     public void OnEnable()
     {
-        _weaponInput.callShot += Shot;
+        _shipShotController.OnEnable();
+        _shipLaserController.OnEnable();
     }
 
     public void OnDisable()
     {
-        _weaponInput.callShot -= Shot;
+        _shipShotController.OnDisable();
+        _shipLaserController.OnDisable();
     }
 
     public void Update(float deltaTime)
     {
-        if (_currentCoolDown > 0)
-        {
-            _currentCoolDown -= deltaTime;
-        }
-    }
-
-    private void Shot()
-    {
-        if (IsReadyToShot == false)
-        {
-            return;
-        }
-
-        _bulletSpawner.SpawnBullet(_bulletSpawnPoint.position, _bulletSpawnPoint.rotation);
-        _currentCoolDown = _shooterConfiguration.FireRate;
+        _shipLaserController.Update(deltaTime);
+        _shipShotController.Update(deltaTime);
     }
 }

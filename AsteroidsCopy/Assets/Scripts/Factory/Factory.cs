@@ -9,7 +9,7 @@ public class Factory<T> : IFactory<T>
         _args = args;
     }
 
-    public T CreatePoolObject()
+    public T CreateObject()
     {
         return (T) Activator.CreateInstance(typeof(T), _args);
     }

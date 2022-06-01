@@ -10,13 +10,15 @@ public class ShipInstaller : MonoBehaviour
     [SerializeField] private ShipMovementConfiguration shipMovementConfiguration;
 
     private IUpdatable _ship;
+
     private void Awake()
     {
-        _ship = new ShipMovementController(shipTransform,shipMovementConfiguration,shipMovementConfiguration,inputController);
+        _ship = new ShipMovementController(shipTransform, shipMovementConfiguration, shipMovementConfiguration,
+            inputController);
     }
 
     private void Update()
     {
-       _ship.Update();
+        _ship.Update(Time.deltaTime);
     }
 }

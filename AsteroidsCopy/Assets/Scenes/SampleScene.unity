@@ -565,6 +565,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 2072406705637629756, guid: 081c51a3ebdb7894ca7d6b68f4efcf08, type: 3}
+  laser: {fileID: 2072406705637629756, guid: f9717a7936d65314999fe505209cef5f, type: 3}
 --- !u!4 &2105336516
 Transform:
   m_ObjectHideFlags: 0

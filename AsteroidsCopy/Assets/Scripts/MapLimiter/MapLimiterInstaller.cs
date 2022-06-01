@@ -8,8 +8,19 @@ public class MapLimiterInstaller : MonoBehaviour
     [SerializeField] private MapLimiterConfiguration mapLimiterConfiguration;
     [SerializeField] private Vector3 center;
 
+    private IMapLimiterService _mapLimiterService;
     private void Awake()
     {
-        var mapLimiter = new MapLimiter(mapLimiterConfiguration, center);
+        _mapLimiterService = new MapLimiter(mapLimiterConfiguration, center);
+    }
+
+    private void OnEnable()
+    {
+        ServiceLocator.Subscribe<IMapLimiterService>(_mapLimiterService);
+    }
+
+    private void OnDisable()
+    {
+        ServiceLocator.Unsubscribe<IMapLimiterService>();
     }
 }

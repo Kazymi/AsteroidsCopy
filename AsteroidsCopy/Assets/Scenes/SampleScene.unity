@@ -153,7 +153,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 342d4aae2bfe4be0863937f4ee5bb633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meteor: {fileID: 6226372680860059437, guid: a144f09ed762a5b4bb191235a668351b, type: 3}
+  enemyConfigurations:
+  - enemy: {fileID: 659195935219277750, guid: a144f09ed762a5b4bb191235a668351b, type: 3}
+    enemyType: 0
+  - enemy: {fileID: 4533623244368891022, guid: cef9d2b76dc8f60449769b445137cbf0, type: 3}
+    enemyType: 1
 --- !u!114 &53565180
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,13 +1,13 @@
 ﻿public class MeteorSpawner : IUpdatable
 {
     private readonly float _spawnInterval;
-    private readonly IMeteorSpawnerService _meteorSpawnerService;
+    private readonly IEnemySpawnerService _meteorSpawnerService;
     private float _currentTime;
 
     public MeteorSpawner(float spawnInterval)
     {
         _spawnInterval = spawnInterval;
-        _meteorSpawnerService = ServiceLocator.GetService<IMeteorSpawnerService>();
+        _meteorSpawnerService = ServiceLocator.GetService<IEnemySpawnerService>();
     }
 
     public void Update(float deltaTime)
@@ -25,6 +25,6 @@
 
     private void SpawnMeteor()
     {
-        _meteorSpawnerService.SpawnMeteor();
+        _meteorSpawnerService.SpawnEnemy(EnemyType.Meteor);
     }
 }

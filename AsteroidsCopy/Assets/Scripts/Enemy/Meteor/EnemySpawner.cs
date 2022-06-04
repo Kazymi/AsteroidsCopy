@@ -1,18 +1,58 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using JetBrains.Annotations;
+using UnityEngine;
 
-public class EnemySpawner : IMeteorSpawnerService
+public class EnemySpawner : IEnemySpawnerService
 {
-    private readonly IPool<TemporaryMonoPooled> _meteorPool;
+    private readonly Dictionary<EnemyType, IPool<TemporaryMonoPooled>> _enemiesPool =
+        new Dictionary<EnemyType, IPool<TemporaryMonoPooled>>();
+
     private const int AmountEnemyInPool = 3;
 
-    public EnemySpawner(TemporaryMonoPooled meteor, Transform parent)
+    public EnemySpawner(IEnumerable<SpawnEnemyConfiguration> enemies, Transform parent)
     {
-        var meteorFactory = new FactoryMonoObject<TemporaryMonoPooled>(meteor.gameObject, parent);
-        _meteorPool = new Pool<TemporaryMonoPooled>(meteorFactory, AmountEnemyInPool);
+        foreach (var spawnEnemyConfiguration in enemies)
+        {
+            if (_enemiesPool.ContainsKey(spawnEnemyConfiguration.EnemyType))
+            {
+                Debug.LogWarning($"{spawnEnemyConfiguration.EnemyType} already added to the list");
+                return;
+            }
+
+            var enemyFactory =
+                new FactoryMonoObject<TemporaryMonoPooled>(spawnEnemyConfiguration.Enemy.gameObject, parent);
+            var pool = new Pool<TemporaryMonoPooled>(enemyFactory, AmountEnemyInPool);
+            _enemiesPool.Add(spawnEnemyConfiguration.EnemyType, pool);
+        }
     }
 
-    public void SpawnMeteor()
+    public Transform SpawnEnemy(EnemyType enemyType)
     {
-        _meteorPool.Pull();
+        if (_enemiesPool.ContainsKey(enemyType))
+        {
+            return _enemiesPool[enemyType].Pull().transform;
+        }
+
+        Debug.LogWarning($"{enemyType} not added to the list");
+        return null;
     }
+}
+
+public enum EnemyType
+{
+    Meteor,
+    SmallMeteor,
+    EnemyShip
+}
+
+[Serializable]
+public class SpawnEnemyConfiguration
+{
+    [SerializeField] private TemporaryMonoPooled enemy;
+    [SerializeField] private EnemyType enemyType;
+
+    public TemporaryMonoPooled Enemy => enemy;
+
+    public EnemyType EnemyType => enemyType;
 }

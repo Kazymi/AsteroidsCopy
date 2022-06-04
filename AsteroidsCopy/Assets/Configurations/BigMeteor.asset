@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d76bf6778644c9a50e33d908893aea, type: 3}
   m_Name: BigMeteor
   m_EditorClassIdentifier: 
-  meteorSpeed: 0.4
+  meteorSpeed: 3

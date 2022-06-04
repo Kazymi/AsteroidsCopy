@@ -10,12 +10,12 @@ public class MeteorInstaller : TemporaryMonoPooled
     {
         base.Initialize();
         _meteorEngine ??= new MeteorEngine(meteorConfiguration);
-        _meteorEngine.Initialize();
-        transform.position = _meteorEngine.Move(Time.deltaTime);
+        _meteorEngine.Initialize(transform);
+        transform.position = _meteorEngine.Move(Time.deltaTime,transform.forward);
     }
 
     private void Update()
     {
-        transform.position = _meteorEngine.Move(Time.deltaTime);
+        transform.position = _meteorEngine.Move(Time.deltaTime,transform.forward);
     }
 }
